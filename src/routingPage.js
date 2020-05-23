@@ -141,7 +141,6 @@ export default function RoutePage() {
 }
 
 //When the website initially opens, the user should be brought to the Home page
-//The Home page asks for user input.
 function Home(props) {
   const classes = useStyles();
 
