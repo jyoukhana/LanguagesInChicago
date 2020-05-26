@@ -79,14 +79,25 @@ export default function RoutePage() {
         // because I don't want the keys specified following if statement.
         for (let key in data[0]) {
           if (key != "community_area" && key != "community_area_name" && key != "predominant_non_english_language_") {
-            allLanguages[count] = key;
+            allLanguages[count] = key.replace(/_/g, " "); //the first argument /_/g means to replace all underscores in the String 
             count++;
           }
         }
 
+        //create random colors for the languages in the bar chart
+        let colors = Array(39).fill(0);
+        let r, g, b;
+        for(let i = 0; i < allLanguages.length; i++){
+          r = Math.floor(Math.random() * 255);
+          g = Math.floor(Math.random() * 255);
+          b = Math.floor(Math.random() * 255);
+          colors[i] = "rgba(" + r + "," + g + "," + b + "," + "0.5)";
+        }
+
         setLanguageData({
           total: total,
-          language: allLanguages
+          language: allLanguages,
+          color: colors
         });
       });
   }, []);
