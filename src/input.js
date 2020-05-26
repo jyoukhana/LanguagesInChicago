@@ -110,7 +110,7 @@ class InputChart extends React.Component {
                                 </FormControl>
                             }
                                 title="Community language visualizer"
-                                subheader="Select a community to view language distrabutions"
+                                subheader="Select a community to view language distributions"
                             />
                             <CardContent>
                                 <canvas id="myChart" width="300" height="300"></canvas>
