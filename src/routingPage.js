@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 export default function RoutePage() {
   const classes = useStyles();
   const [languageData, setLanguageData] = useState("");
+  const [communities, setComData] = useState("");
 
   useEffect(() => {
     GetData()
@@ -61,9 +62,12 @@ export default function RoutePage() {
         let count = 0;
         let total = Array(39).fill(0);
         let allLanguages = Array(39).fill(0);
+        let comOptions = [];
+
 
 
         for (let i = 0; i < data.length; i++) {
+          comOptions.push(data[i].community_area_name);
           //When I type j in data[i], j is the name of the key
           //so to get to the value, I have to type data[i][j]
           for (let j in data[i]) {
@@ -88,7 +92,7 @@ export default function RoutePage() {
         //create random colors for the languages in the bar chart
         let colors = Array(39).fill(0);
         let r, g, b;
-        for(let i = 0; i < allLanguages.length; i++){
+        for (let i = 0; i < allLanguages.length; i++) {
           r = Math.floor(Math.random() * 255);
           g = Math.floor(Math.random() * 255);
           b = Math.floor(Math.random() * 255);
@@ -100,6 +104,7 @@ export default function RoutePage() {
           language: allLanguages,
           color: colors
         });
+        setComData(comOptions)
       });
   }, []);
 
@@ -150,7 +155,7 @@ export default function RoutePage() {
             <CommunityPage />
           </Route>
           <Route path="/">
-            <Home />
+            <Home communities={communities} />
           </Route>
         </Switch>
       </main>
@@ -161,18 +166,28 @@ export default function RoutePage() {
 //When the website initially opens, the user should be brought to the Home page
 function Home(props) {
   const classes = useStyles();
+  const communities = props.communities;
+  console.log(communities);
 
+
+  //below is the basic from I had t take input for chart onSubmit,
+  //              //communities.map((item, i) => {
+  //return <option value={item.community_area_name} >{item.community_area_name}</option>})
   return (
     <Typography className={classes.message}>
       Hello, this is the dummy Home page
-      <form >
-        <label>
-          Hello! <br />
-          Please enter welcome message:
-        <input type="text" name="name" />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+{(Object.entries(communities).length > 0) ? (
+        <form >
+          <input list="selector" name="name" />
+          <datalist id="selector" name="mane">
+            {props.communities.map((item, i) => {
+              return <option value={item} />
+            })}
+          </datalist>
+          <input type="submit" />
+        </form>
+      ) : ((<p></p>))}
+
     </Typography>
   );
 }
