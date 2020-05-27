@@ -15,6 +15,7 @@ import {
 } from "react-router-dom";
 import ChartPage from './chartPage.js';
 import GetData from './getData.js';
+import CommunityPage from './input.js'
 
 
 const drawerWidth = 240;
@@ -120,6 +121,9 @@ export default function RoutePage() {
               <Link to="/chart">
                 <ListItem button>Chart</ListItem>
               </Link>
+              <Link to="/community">
+                <ListItem button>Data by Community</ListItem>
+              </Link>
             </List>
           </div>
         </div>
@@ -131,8 +135,11 @@ export default function RoutePage() {
           <Route path="/chart">
             <ChartPage languageData={languageData} />
           </Route>
+          <Route path="/community">
+            <CommunityPage />
+          </Route>
           <Route path="/">
-            <Home  />
+            <Home />
           </Route>
         </Switch>
       </main>
@@ -147,6 +154,14 @@ function Home(props) {
   return (
     <Typography className={classes.message}>
       Hello, this is the dummy Home page
+      <form >
+        <label>
+          Hello! <br />
+          Please enter welcome message:
+        <input type="text" name="name" />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
     </Typography>
   );
 }

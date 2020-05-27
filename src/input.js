@@ -10,13 +10,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { getDefaultWatermarks } from 'istanbul-lib-report';
 import { colors } from '@material-ui/core';
-import 'chartjs-plugin-labels'
+//import 'chartjs-plugin-labels'
+import { NativeSelect } from '@material-ui/core';
+import { useHistory } from "react-router-dom";
 
 
 class InputChart extends React.Component {
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             chart: undefined,
             community: '',
@@ -24,6 +26,8 @@ class InputChart extends React.Component {
         }
     }
     componentDidMount() {
+        //const { name } = window.location.search
+
         fetch("https://data.cityofchicago.org/resource/a2fk-ec6q.json")
             .then(res => res.json())
             .then(
@@ -40,7 +44,10 @@ class InputChart extends React.Component {
 
     }
 
-    handleChange(event) {
+    handleSubmit(event) {
+        const name = window.location.search
+        alert('params' + name);
+        if (this.state.chart != undefined) this.state.chart.destroy();
         var selected = this.state.data[event];
         var keys = Object.keys(selected);
         var values = Object.values(selected);
@@ -61,7 +68,7 @@ class InputChart extends React.Component {
         }
         var Chart = require('chart.js');
         var ctx = document.getElementById('myChart').getContext('2d');
-        var myPieChart = new Chart(ctx, {
+        const myPieChart = new Chart(ctx, {
             type: 'pie',
             data: {
                 datasets: [{
@@ -71,19 +78,19 @@ class InputChart extends React.Component {
                 }],
                 labels: label
             },
-            options: [{
-                plugins: {
+            /*options: [{
+                //plugins: {
                     //datalabels: { color: 'black' 
-                    labels: {
-                        render: 'percentage'
-                    }
-
+                    //labels: {render: 'percentage'
                 }
-            }]
+            }]*/
 
         });
-        console.log("community name before set state: " + selected.community_area_name);
-        this.setState({ community: selected.community_area_name });
+        //console.log("community name before set state: " + selected.community_area_name);
+        this.setState({
+            community: selected.community_area_name,
+            chart: myPieChart
+        });
     };
 
     render() {
@@ -95,26 +102,23 @@ class InputChart extends React.Component {
 
                         <div>
                             <CardHeader action={
-                                <FormControl >
-                                    <InputLabel id="select1">Community</InputLabel>
-                                    <Select
-                                        labelId="select1"
-                                        id="demo-simple-select"
-                                        value={this.state.community}
-                                        onChange={(event) => this.handleChange(event.target.value)}
-                                    >
+                                <form onSubmit={(event) => this.handleSubmit(event.target.value)}>
+                                    <input list="selector" name="name" />
+                                    <datalist id="selector" name="mane">
                                         {community.map((item, i) => {
-                                            return <MenuItem value={i}>{item.community_area_name}</MenuItem>
+                                            return <option data-value={i} >{item.community_area_name}</option>
                                         })}
-                                    </Select>
-                                </FormControl>
+                                    </datalist>
+                                    <input type="submit" />
+                                </form>
+
+
                             }
                                 title="Community language visualizer"
                                 subheader="Select a community to view language distrabutions"
                             />
                             <CardContent>
                                 <canvas id="myChart" width="300" height="300"></canvas>
-                                {console.log("community in render " + this.state.community)}
                             </CardContent>
                         </div>
                     ) : (<p></p>)}
@@ -125,3 +129,28 @@ class InputChart extends React.Component {
 
 }
 export default InputChart;
+/*<FormControl >
+                                <InputLabel id="select1">Community</InputLabel>
+                                <Select name="name"
+                                    labelId="select1"
+                                    id="demo-simple-select"
+                                    value={this.state.community}
+                                    onChange={(event) => this.handleChange(event.target.value)}
+                                >
+                                    {community.map((item, i) => {
+                                        return <MenuItem value={i}>{item.community_area_name}</MenuItem>
+                                    })}
+                                </Select>
+                            </FormControl>
+
+
+
+                            <select onChange={(event) => this.handleChange(event.target.value)} name="mane" id="communities">
+                                {community.map((item, i) => {
+                                    return <option value={i}>{item.community_area_name}</option>
+                                })}
+                            </select>
+
+
+
+                            */

@@ -4,8 +4,10 @@ import { BrowserRouter } from "react-router-dom";
 import RoutingPage from './routingPage';
 
 ReactDOM.render(
-    <BrowserRouter>
-        <RoutingPage />
-    </BrowserRouter>, 
+    <React.StrictMode>
+        <BrowserRouter>
+            <RoutingPage />
+        </BrowserRouter>
+    </React.StrictMode>,
     document.querySelector('#root')
 );
