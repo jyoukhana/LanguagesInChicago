@@ -6,10 +6,10 @@ function getBarData(data) {
     const barData = {
         labels: data.language,
         datasets: [{
-            label: 'Totals',
+            label: "Languages",
             data: data.total,
-            backgroundColor: 'rgba(85, 250, 20, 0.5)', //green
-            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: data.color, 
+            borderColor: 'rgba(75, 192, 192, 1)', //green border... Arbitrary choice
             borderWidth: 1
         }]
     }
@@ -23,7 +23,7 @@ export default function Chart(props) {
             <Bar
                 data={getBarData(props.languageData)}
                 width={100}
-                height={60}
+                height={100}
                 options={{
                     scales: {
                         yAxes: [{
