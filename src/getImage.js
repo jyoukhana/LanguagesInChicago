@@ -12,7 +12,7 @@ export default (community = undefined) => {
     } else if (community === "Uptown") {
         imgPath = imgPath + "uptown.jpg";
     } else if (community === "Lincoln Square") {
-        imgPath = imgPath + "lincoln-square.jpg";
+        imgPath = imgPath + "lincoln-square.jpeg";
     } else if (community === "North Center") {
         imgPath = imgPath + "north-center.jpg";
     } else if (community === "Lake View") {
