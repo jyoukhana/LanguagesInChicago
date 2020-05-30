@@ -12,9 +12,11 @@ import {
   Switch,
   Route,
   Link,
+  Redirect
 } from "react-router-dom";
 import ChartPage from './chartPage.js';
 import GetData from './getData.js';
+import CommunityPage from './input.js'
 
 
 const drawerWidth = 240;
@@ -53,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 export default function RoutePage() {
   const classes = useStyles();
   const [languageData, setLanguageData] = useState("");
+  const [communities, setComData] = useState("");
 
   useEffect(() => {
     GetData()
@@ -60,9 +63,10 @@ export default function RoutePage() {
         let count = 0;
         let total = Array(39).fill(0);
         let allLanguages = Array(39).fill(0);
-
+        let comOptions = [];
 
         for (let i = 0; i < data.length; i++) {
+          comOptions.push(data[i].community_area_name);
           //When I type j in data[i], j is the name of the key
           //so to get to the value, I have to type data[i][j]
           for (let j in data[i]) {
@@ -87,7 +91,7 @@ export default function RoutePage() {
         //create random colors for the languages in the bar chart
         let colors = Array(39).fill(0);
         let r, g, b;
-        for(let i = 0; i < allLanguages.length; i++){
+        for (let i = 0; i < allLanguages.length; i++) {
           r = Math.floor(Math.random() * 255);
           g = Math.floor(Math.random() * 255);
           b = Math.floor(Math.random() * 255);
@@ -99,6 +103,7 @@ export default function RoutePage() {
           language: allLanguages,
           color: colors
         });
+        setComData(comOptions)
       });
   }, []);
 
@@ -110,7 +115,7 @@ export default function RoutePage() {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            Final Project Concept
+            Final Project
           </Typography>
         </Toolbar>
       </AppBar>
@@ -129,7 +134,10 @@ export default function RoutePage() {
                 <ListItem button>Home</ListItem>
               </Link>
               <Link to="/chart">
-                <ListItem button>Chart</ListItem>
+                <ListItem button>Chart with all communities</ListItem>
+              </Link>
+              <Link to="/community">
+                <ListItem button>Data by Community</ListItem>
               </Link>
             </List>
           </div>
@@ -140,10 +148,13 @@ export default function RoutePage() {
         <Toolbar />
         <Switch>
           <Route path="/chart">
-            <ChartPage languageData={languageData} />
+            <ChartPage languageData={languageData} />          
+          </Route>
+          <Route path="/community">
+            <CommunityPage />
           </Route>
           <Route path="/">
-            <Home  />
+            <Home communities={communities} />
           </Route>
         </Switch>
       </main>
@@ -154,11 +165,43 @@ export default function RoutePage() {
 //When the website initially opens, the user should be brought to the Home page
 function Home(props) {
   const classes = useStyles();
+  const communities = props.communities;
+  const [data, setData]= useState('')
+  const [submited, setSubmit] = useState(false);
+  console.log('comunity' + '' + communities);
 
+
+  //below is the basic from I had t take input for chart onSubmit,
+  //              //communities.map((item, i) => {
+  //return <option value={item.community_area_name} >{item.community_area_name}</option>})
+  
+  if(submited === true){
+ 
+   return <Redirect push to = {`/community?name=${encodeURIComponent(data)}`}/>
+  
+
+  }else{
   return (
+  
     <Typography className={classes.message}>
       Hello, this is the dummy Home page
+        {(Object.entries(communities).length > 0) ? (
+        <form onSubmit = {()=>{setSubmit(true)} }>
+    
+          <input list="selector" name="name" onChange={(event)=>{
+            setData(event.target.value)
+          }} />
+          <datalist id="selector" name="mane">
+            {props.communities.map((item, i) => {
+              return <option value={item} />
+            })}
+          </datalist>
+          <input type="submit" />
+        </form>
+      ) : ((<p></p>))}
+
     </Typography>
-  );
+    );
+  }
 }
 

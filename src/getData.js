@@ -1,6 +1,9 @@
 //Gets Information about languages spoken in the city of Chicago.
-export default () => {
-    return fetch("https://data.cityofchicago.org/resource/a2fk-ec6q.json")
+export default (community = undefined) => {
+    let str;
+    (community) ? (str = 'https://data.cityofchicago.org/resource/a2fk-ec6q.json?community_area_name=' + community) :
+        (str = "https://data.cityofchicago.org/resource/a2fk-ec6q.json");
+    return fetch(str)
         .then((response) => {
             return response.json();
         })
