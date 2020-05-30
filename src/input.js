@@ -4,7 +4,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import 'chartjs-plugin-labels'
-import { NativeSelect, CardActionArea } from '@material-ui/core';
+import { NativeSelect, CardActionArea, Typography } from '@material-ui/core';
 import { useHistory } from "react-router-dom";
 import GetData from './getData.js';
 import GetImage from './getImage.js';
@@ -86,30 +86,30 @@ class InputChart extends React.Component {
         let sub = "Language distrabutions for " + this.state.community;
 
         let neighborhoodImage = GetImage(this.state.community);
-        
-        return (
-            <Card>
-                <CardActionArea>
-                <CardMedia
-                    component="img"
-                    alt={this.state.community}
-                    height="400"
-                    image= {neighborhoodImage}
-                    title= {this.state.community}
-                />
-                </CardActionArea>
-                <CardHeader
-                    title="Community language visualizer"
-                    subheader={sub}
-                />
-                <CardContent>
-                    <canvas id="myChart" width="300" height="300"></canvas>
-                </CardContent>
-            </Card>
-        )
+
+            return (
+                <Card>
+                    <CardActionArea>
+                        <CardMedia
+                            component="img"
+                            alt={this.state.community}
+                            height="400"
+                            image={neighborhoodImage}
+                            title={this.state.community}
+                        />
+                    </CardActionArea>
+                    <CardHeader
+                        title="Community language visualizer"
+                        subheader={sub}
+                    />
+                    <CardContent>
+                        <canvas id="myChart" width="300" height="300"></canvas>
+                    </CardContent>
+                </Card>
+            )
+        }
     }
 
-}
 export default InputChart;
 /*<FormControl >
                                 <InputLabel id="select1">Community</InputLabel>
