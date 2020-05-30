@@ -311,7 +311,7 @@ export function CityCard() {
             This project displays census data of languages spoken in Chicago from 2008 - 2012. The data is pulled
             from the Chicago Data Portal and uses their API to fetch JSON data of each neighborhood and their language
             statistics. In this application, you can view city-wide language statistics on a bar chart by clicking on the
-            accompanying link on the right drawer. You can also submit a neighborhood on the homepage drop-down menu which
+            accompanying link in the drawer on the left. You can also submit a neighborhood on the homepage drop-down menu which
             will redirect you to a pie chart that visualizes data on that specific neighborhood.
 
             All data is taken from https://data.cityofchicago.org/Health-Human-Services/Census-Data-Languages-spoken-in-Chicago-2008-2012/a2fk-ec6q
