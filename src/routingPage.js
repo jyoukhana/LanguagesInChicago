@@ -164,7 +164,7 @@ export default function RoutePage() {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            Chicago Linguistics Data
+            Chicago Language Data
           </Typography>
         </Toolbar>
       </AppBar>
@@ -183,7 +183,7 @@ export default function RoutePage() {
                 <ListItem button><HomeIcon/>Home</ListItem>
               </Link>
               <Link to="/chart">
-                <ListItem button><AssessmentIcon/>City-Wide Linguistics Visualizer</ListItem>
+                <ListItem button><AssessmentIcon/>City-Wide Language Visualizer</ListItem>
               </Link>
               <Link to="/community">
                 <ListItem button><AccountCircle/>Community Input Visualizer</ListItem>
