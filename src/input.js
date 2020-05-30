@@ -82,6 +82,9 @@ class InputChart extends React.Component {
     }
 
     render() {
+        var query = new URLSearchParams(window.location.search);
+
+        if(query.get("name") != null){
         let community = this.state.data;
         let sub = "Language distrabutions for " + this.state.community;
 
@@ -107,7 +110,14 @@ class InputChart extends React.Component {
                     </CardContent>
                 </Card>
             )
+        } else {
+            return (
+                <Typography>
+                    Please select a neighborhood on the homepage drop-down menu to visualize language data
+                </Typography>
+            )
         }
+    }
     }
 
 export default InputChart;
