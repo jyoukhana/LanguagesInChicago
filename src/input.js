@@ -85,17 +85,17 @@ class InputChart extends React.Component {
         var query = new URLSearchParams(window.location.search);
 
         if(query.get("name") != null){
-        let community = this.state.data;
-        let sub = "Language distributions for " + this.state.community;
+            let community = this.state.data;
+            let sub = "Language distributions for " + this.state.community;
 
-        let neighborhoodImage = GetImage(this.state.community);
+            let neighborhoodImage = GetImage(this.state.community);
 
             return (
                 <Card>
                     <CardActionArea>
                         <CardMedia
                             component="img"
-                            alt={this.state.community}
+                            alt={"image that shows the " + this.state.community + " community"}
                             height="400"
                             image={neighborhoodImage}
                             title={this.state.community}
@@ -118,7 +118,7 @@ class InputChart extends React.Component {
             )
         }
     }
-    }
+}
 
 export default InputChart;
 /*<FormControl >

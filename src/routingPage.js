@@ -228,28 +228,32 @@ function Home(props) {
   //return <option value={item.community_area_name} >{item.community_area_name}</option>})
 
   if (submited === true) {
-
     return <Redirect push to={`/community?name=${encodeURIComponent(data)}`} />
-
 
   } else {
 
     return (
 
       <Typography className={classes.message}>
-        Language statistics in Chicago
         {(Object.entries(communities).length > 0) ? (
           <form onSubmit={() => { setSubmit(true) }}>
-
-            <input list="selector" name="name" placeholder="Choose neighborhood..." onChange={(event) => {
-              setData(event.target.value)
-            }} />
-            <datalist id="selector" name="mane">
-              {props.communities.map((item, i) => {
-                return <option value={item} />
-              })}
-            </datalist>
-            <input type="submit" />
+            <label>
+              Language statistics in Chicago<br />
+              <input 
+                list="selector" 
+                name="name" 
+                placeholder="Choose neighborhood..." 
+                onChange={(event) => {
+                  setData(event.target.value)
+                }} 
+              />
+              <datalist id="selector" name="mane">
+                {props.communities.map((item, i) => {
+                  return <option value={item} />
+                })}
+              </datalist>
+            </label>
+            <input type="submit" value="Submit"/>
           </form>
         ) : ((<p></p>))}
 
