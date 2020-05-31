@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import 'chart.js'; //If this is removed, percentages are removed from both this chart and pie chart 
+
 
 function generateDescription(data){
     let desc = "Bar chart. x axis, Language. y axis, number of individuals who speak the language.";

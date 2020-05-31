@@ -40,13 +40,17 @@ class InputChart extends React.Component {
                         return "rgb(" + r + "," + g + "," + b + ")";
                     };
 
+                    var totalIndividuals = 0;
                     for (let i = 2; i < keys.length; i++) {
                         if (values[i] > 0) {
                             dataset.push(values[i]);
                             label.push(keys[i]);
                             coloR.push(dynamicColors());
+                            totalIndividuals += parseInt(values[i]);
                         }
                     }
+                    console.log("totalIndividuals = ", totalIndividuals);
+
                     var Chart = require('chart.js');
                     var ctx = document.getElementById('myChart').getContext('2d');
                     const myPieChart = new Chart(ctx, {
@@ -59,7 +63,22 @@ class InputChart extends React.Component {
                             }],
                             labels: label
                         },
-                        options: [{
+                        options: {
+                            tooltips: {
+                                mode: 'index',
+                                callbacks: {
+                                    footer: function(tooltipItems, data){
+                                        var percentage = 0;
+                                        
+                                        tooltipItems.forEach(function(tooltipItem) {
+                                            percentage = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index] / totalIndividuals * 100;
+                                        });
+
+                                        return 'Percentage: ' + percentage.toFixed(1) + '%';
+                                    }
+                                },
+                                footerFontStyle: 'normal'
+                            },
                             plugins: {
                                 labels: {
                                     render: 'percentage',
@@ -67,7 +86,7 @@ class InputChart extends React.Component {
                                     overlap: false,
                                 }
                             }
-                        }]
+                        }
                     });
                     this.setState({
                         chart: myPieChart,
