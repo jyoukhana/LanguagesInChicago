@@ -4,15 +4,15 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 
 
-function generateDescription(data){
+function generateDescription(data) {
     let desc = "Bar chart. x axis, Language. y axis, number of individuals who speak the language.";
 
-    try{
-        for(let i = 0; i < data.language.length; i++){
+    try {
+        for (let i = 0; i < data.language.length; i++) {
             desc += " " + data.total[i] + " individuals speak " + data.language[i] + ".";
         }
-    } 
-    catch(error) {
+    }
+    catch (error) {
         //nothing happens
     }
     return desc;
@@ -24,7 +24,7 @@ function getBarData(data) {
         datasets: [{
             label: "Languages",
             data: data.total,
-            backgroundColor: data.color, 
+            backgroundColor: data.color,
             borderColor: 'rgba(0, 0, 0, 1)',
             borderWidth: 1
         }]
@@ -32,20 +32,20 @@ function getBarData(data) {
     return barData;
 }
 
-function createChart(data, ctx){
-    var barChart = require("chart.js"); 
+function createChart(data, ctx) {
+    var barChart = require("chart.js");
     const totalChart = new barChart(ctx, {
         type: 'bar',
-        data: getBarData(data), 
+        data: getBarData(data),
         options: {
             scales: {
                 yAxes: [{
                     type: 'logarithmic',
                     ticks: {
                         beginAtZero: true,
-                        userCallback: function(tick){
+                        userCallback: function (tick) {
                             var remain = tick / (Math.pow(10, Math.floor(barChart.helpers.log10(tick))));
-                            if(remain < 10 ){
+                            if (remain < 10) {
                                 return tick.toString();
                             }
                             return '';
@@ -63,7 +63,7 @@ function createChart(data, ctx){
                         fontSize: 20,
                         fontColor: 'black',
                         display: true,
-                        labelString: 'Language'  
+                        labelString: 'Language'
                     }
                 }]
             }
@@ -72,23 +72,23 @@ function createChart(data, ctx){
 }
 
 //Creates the chart that does not require user input
-export default function Chart(props){
+export default function Chart(props) {
     const [ctx, setCtx] = useState("");
-    
+
     //useEffect is like the componentDidMount(), but for hooks
-    useEffect(()=>{
+    useEffect(() => {
         setCtx(document.getElementById('totalChart').getContext('2d'));
-    },[]);
-    
+    }, []);
+
     createChart(props.languageData, ctx);
-    
-    return(
+
+    return (
         <Card>
-            <CardHeader 
-                title="Languages Spoken in All Communities in Chicago"
+            <CardHeader
+                title="Non-English Languages Spoken Across Chicago"
             />
             <CardContent>
-                <canvas id="totalChart" width="250" height="300" aria-label={generateDescription(props.languageData)}></canvas>                
+                <canvas id="totalChart" width="250" height="300" aria-label={generateDescription(props.languageData)}></canvas>
             </CardContent>
         </Card>
     );
