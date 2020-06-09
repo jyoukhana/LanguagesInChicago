@@ -161,7 +161,7 @@ function RoutePage() {
 
 
 
-  //Composition of website...Not the official version, Just a placeholder until the official version is finished. 
+  //Composition of website
 
   return (
     <div className={classes.root}>
@@ -252,6 +252,7 @@ function Home(props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
+  //I used alt+255 to make a space between the text and the link in typography
   return (
     <Card className={classes.root2}>
       <CardHeader
@@ -294,9 +295,13 @@ function Home(props) {
             This project displays census data of non-English languages spoken in Chicago from 2008 - 2012. The data is pulled
             from the Chicago Data Portal and uses their API to fetch JSON data of each neighborhood and their language
             statistics. In this application, you can view a bar chart of city-wide language statistics by clicking the
-            link in the drawer on the left. Alternatlivley, you may select a community to
+            link in the drawer on the left. alternatively, you may select a community to
             view a pie chart of any given neighborhood's language statistics.
-            All data is taken from https://data.cityofchicago.org/Health-Human-Services/Census-Data-Languages-spoken-in-Chicago-2008-2012/a2fk-ec6q
+            All data is taken from 
+			<a href="https://data.cityofchicago.org/Health-Human-Services/Census-Data-Languages-spoken-in-Chicago-2008-2012/a2fk-ec6q" aria-label="Chicago Data Portal">
+				Chicago Data Portal
+			</a>
+			.
           </Typography>
         </CardContent>
       </Collapse>
