@@ -1,3 +1,7 @@
+## About this project
+
+This project is a web application made for my Web Applications at DePaul University. It uses ReactJS, MaterialUI, and Chart.JS. This app displays info taken from [City of Chicago's data portal language census data API](https://data.cityofchicago.org/Health-Human-Services/Census-Data-Languages-spoken-in-Chicago-2008-2012/a2fk-ec6q). The API returns a JSON giving language census data from each Chicago neighborhood from 2008-2012. The app takes that data and visualizes the data using Chart.JS. One page displays city-wide language data on a bar chart while the other allows the user to choose a specific neighborhood and display a pie chart.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
